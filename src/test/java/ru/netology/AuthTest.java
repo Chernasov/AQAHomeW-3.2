@@ -1,30 +1,33 @@
 package ru.netology;
 
-import lombok.SneakyThrows;
-import org.apache.commons.dbutils.QueryRunner;
-import org.apache.commons.dbutils.handlers.BeanHandler;
-import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.netology.domain.DataHelper;
+import ru.netology.page.DashboardPage;
+import ru.netology.page.LoginPage;
 
-import java.sql.DriverManager;
+import static com.codeborne.selenide.Selenide.open;
 
 public class AuthTest {
+    @BeforeEach
+    void setUpPage() {
+        open("http://localhost:9999/");
+    }
 
-    @SneakyThrows
+//    @AfterAll
+//    static void deleteData() {
+//        DataHelper.clearAllData();
+//    }
+
     @Test
-    void shouldDataFromUsers() {
-        var usersSQL = "SELECT * FROM users;";
-        var runner = new QueryRunner();
+    void shouldTruePath() {
+        var loginPage = new LoginPage();
+        var infoValidUser = DataHelper.getAuthInfo();
+        var verificationPage = loginPage.validLogin(infoValidUser);
+        var verificationCode = DataHelper.getVerificationCodeFor();
+        verificationPage.validVerify(verificationCode);
 
-        try (
-                var conn = DriverManager.getConnection(
-                        "jdbc:mysql://localhost:3306/app_db", "user", "password"
-                );
-            )
-        {
-        var all = runner.query(conn, usersSQL, new BeanListHandler<>(DataHelper.AuthInfo.class));
-            System.out.println(all);
-        }
+
     }
 }
