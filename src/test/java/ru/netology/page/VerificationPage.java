@@ -12,6 +12,7 @@ public class VerificationPage {
     public VerificationPage() {
         codeField.shouldBe(visible);
     }
+
     public DashboardPage validVerify(DataHelper.VerificationCode verificationCode) {
         codeField.setValue(verificationCode.getCode());
         $("[data-test-id='action-verify']").click();

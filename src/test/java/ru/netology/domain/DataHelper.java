@@ -15,7 +15,7 @@ public class DataHelper {
     public static class AuthInfo {
         private String login;
         private String password;
-            }
+    }
 
     public static AuthInfo getAuthInfo() {
         return new AuthInfo("vasya", "qwerty123");
@@ -53,8 +53,7 @@ public class DataHelper {
                 var conn = DriverManager.getConnection(
                         "jdbc:mysql://localhost:3306/app_db", "user", "password"
                 );
-        )
-        {
+        ) {
             code = runner.query(conn, codesSQL, new ScalarHandler<>());
         }
         return new VerificationCode(code);
@@ -62,21 +61,16 @@ public class DataHelper {
 
     @SneakyThrows
     public static void clearAllData() {
-        var clearCodes = "DELETE FROM auth_codes;";
-        var clearTransactions = "DELETE FROM card_transactions;";
-        var clearCards = "DELETE FROM cards;";
-        var clearUsers = "DELETE FROM users;";
-        var runner = new QueryRunner();
+         var runner = new QueryRunner();
         try (
                 var conn = DriverManager.getConnection(
                         "jdbc:mysql://localhost:3306/app_db", "user", "password"
                 );
-            )
-        {
-            runner.execute(conn, clearCodes);
-            runner.execute(conn, clearTransactions);
-            runner.execute(conn, clearCards);
-            runner.execute(conn, clearUsers);
+        ) {
+            runner.execute(conn, "DELETE FROM auth_codes;");
+            runner.execute(conn, "DELETE FROM card_transactions;");
+            runner.execute(conn, "DELETE FROM cards;");
+            runner.execute(conn, "DELETE FROM users;");
         }
     }
 }
