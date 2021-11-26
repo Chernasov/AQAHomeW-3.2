@@ -7,7 +7,6 @@ import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import java.sql.DriverManager;
-import java.util.Locale;
 
 public class DataHelper {
     private DataHelper() {
@@ -24,7 +23,11 @@ public class DataHelper {
     }
 
     public static AuthInfo getInvalidLogin() {
-        return new AuthInfo(new Faker().name().firstName(),"qwerty123");
+        return new AuthInfo(new Faker().name().firstName(), "qwerty123");
+    }
+
+    public static AuthInfo getInvalidPassword() {
+        return new AuthInfo("vasya", new Faker().internet().password());
     }
 
     public static AuthInfo getOtherAuthInfo(AuthInfo original) {
@@ -65,9 +68,13 @@ public class DataHelper {
         return new VerificationCode(code);
     }
 
+    public static VerificationCode getInvalidVerificationCodeFor() {
+        return (new VerificationCode(new Faker().numerify("######")));
+    }
+
     @SneakyThrows
     public static void clearAllData() {
-         var runner = new QueryRunner();
+        var runner = new QueryRunner();
         try (
                 var conn = DriverManager.getConnection(
                         "jdbc:mysql://localhost:3306/app_db", "user", "password"

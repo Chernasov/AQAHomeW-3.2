@@ -1,6 +1,7 @@
 package ru.netology.page;
 
 import com.codeborne.selenide.SelenideElement;
+import org.openqa.selenium.Keys;
 import ru.netology.domain.DataHelper;
 
 import static com.codeborne.selenide.Condition.text;
@@ -21,10 +22,30 @@ public class LoginPage {
 
     }
 
-    public void inValidLogin(DataHelper.AuthInfo info) {
+    public void invalidLogin(DataHelper.AuthInfo info) {
         login.setValue(info.getLogin());
         password.setValue(info.getPassword());
         button.click();
         error.shouldBe(visible).shouldHave(text("Неверно указан логин или пароль"));
     }
+
+    public void invalidRassword(DataHelper.AuthInfo info) {
+        login.setValue(info.getLogin());
+        password.setValue(info.getPassword());
+        button.click();
+        error.shouldBe(visible).shouldHave(text("Неверно указан логин или пароль"));
+    }
+
+    public void clearFields() {
+        login.doubleClick().sendKeys(Keys.BACK_SPACE);
+        password.doubleClick().sendKeys(Keys.BACK_SPACE);
+    }
+
+    public void invalidRasswordThrice(DataHelper.AuthInfo info) {
+        login.setValue(info.getLogin());
+        password.setValue(info.getPassword());
+        button.click();
+        error.shouldBe(visible).shouldHave(text("Превышено число попыток входа!"));
+    }
+
 }
