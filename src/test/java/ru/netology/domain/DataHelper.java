@@ -1,11 +1,13 @@
 package ru.netology.domain;
 
+import com.github.javafaker.Faker;
 import lombok.SneakyThrows;
 import lombok.Value;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import java.sql.DriverManager;
+import java.util.Locale;
 
 public class DataHelper {
     private DataHelper() {
@@ -19,6 +21,10 @@ public class DataHelper {
 
     public static AuthInfo getAuthInfo() {
         return new AuthInfo("vasya", "qwerty123");
+    }
+
+    public static AuthInfo getInvalidLogin() {
+        return new AuthInfo(new Faker().name().firstName(),"qwerty123");
     }
 
     public static AuthInfo getOtherAuthInfo(AuthInfo original) {

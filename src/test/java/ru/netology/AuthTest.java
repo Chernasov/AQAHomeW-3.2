@@ -8,6 +8,8 @@ import ru.netology.page.LoginPage;
 import static com.codeborne.selenide.Selenide.open;
 
 public class AuthTest {
+    private LoginPage loginPage = new LoginPage();
+
     @BeforeEach
     void setUpPage() {
         open("http://localhost:9999/");
@@ -20,12 +22,15 @@ public class AuthTest {
 
     @Test
     void shouldTruePath() {
-        var loginPage = new LoginPage();
         var infoValidUser = DataHelper.getAuthInfo();
         var verificationPage = loginPage.validLogin(infoValidUser);
         var verificationCode = DataHelper.getVerificationCodeFor();
         verificationPage.validVerify(verificationCode);
+    }
 
-
+    @Test
+    void shouldUseInvalidLogin() {
+        var infoInvalidUserLogin = DataHelper.getInvalidLogin();
+        loginPage.inValidLogin(infoInvalidUserLogin);
     }
 }
