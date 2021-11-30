@@ -14,25 +14,25 @@ public class LoginPage {
     private SelenideElement button = $("[data-test-id=action-login]");
     private SelenideElement error = $("[data-test-id='error-notification'] .notification__content");
 
-    public VerificationPage validLogin(DataHelper.AuthInfo info) {
+    private void setUp (DataHelper.AuthInfo info) {
         login.setValue(info.getLogin());
         password.setValue(info.getPassword());
         button.click();
+    }
+
+    public VerificationPage validLogin(DataHelper.AuthInfo info) {
+        setUp(info);
         return new VerificationPage();
 
     }
 
     public void invalidLogin(DataHelper.AuthInfo info) {
-        login.setValue(info.getLogin());
-        password.setValue(info.getPassword());
-        button.click();
+        setUp(info);
         error.shouldBe(visible).shouldHave(text("Неверно указан логин или пароль"));
     }
 
-    public void invalidRassword(DataHelper.AuthInfo info) {
-        login.setValue(info.getLogin());
-        password.setValue(info.getPassword());
-        button.click();
+    public void invalidPassword(DataHelper.AuthInfo info) {
+        setUp(info);
         error.shouldBe(visible).shouldHave(text("Неверно указан логин или пароль"));
     }
 
@@ -41,10 +41,8 @@ public class LoginPage {
         password.doubleClick().sendKeys(Keys.BACK_SPACE);
     }
 
-    public void invalidRasswordThrice(DataHelper.AuthInfo info) {
-        login.setValue(info.getLogin());
-        password.setValue(info.getPassword());
-        button.click();
+    public void invalidPasswordThrice(DataHelper.AuthInfo info) {
+        setUp(info);
         error.shouldBe(visible).shouldHave(text("Превышено число попыток входа!"));
     }
 

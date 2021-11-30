@@ -38,19 +38,19 @@ public class AuthTest {
     @Test
     void shouldUseInvalidPassword() {
         var infoInvalidUserPassword = DataHelper.getInvalidPassword();
-        loginPage.invalidRassword(infoInvalidUserPassword);
+        loginPage.invalidPassword(infoInvalidUserPassword);
     }
 
     @Test
     void shouldUseInvalidPasswordThrice() {
         var infoInvalidUserPassword1 = DataHelper.getInvalidPassword();
-        loginPage.invalidRassword(infoInvalidUserPassword1);
+        loginPage.invalidPassword(infoInvalidUserPassword1);
         loginPage.clearFields();
         var infoInvalidUserPassword2 = DataHelper.getInvalidPassword();
-        loginPage.invalidRassword(infoInvalidUserPassword2);
+        loginPage.invalidPassword(infoInvalidUserPassword2);
         loginPage.clearFields();
         var infoInvalidUserPassword3 = DataHelper.getInvalidPassword();
-        loginPage.invalidRasswordThrice(infoInvalidUserPassword3);
+        loginPage.invalidPasswordThrice(infoInvalidUserPassword3);
     }
 
     @Test

@@ -30,23 +30,6 @@ public class DataHelper {
         return new AuthInfo("vasya", new Faker().internet().password());
     }
 
-    public static AuthInfo getOtherAuthInfo(AuthInfo original) {
-        return new AuthInfo("petya", "123qwerty");
-    }
-
-//    @Value
-//    public static class CardInfo {
-//        private String number;
-//    }
-//
-//    public static CardInfo getNumberFirstCard() {
-//        return new CardInfo("5559 0000 0000 0001");
-//    }
-//
-//    public static CardInfo getNumberSecondCard() {
-//        return new CardInfo("5559 0000 0000 0002");
-//    }
-
     @Value
     public static class VerificationCode {
         private String code;
